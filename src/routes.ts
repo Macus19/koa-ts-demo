@@ -3,14 +3,16 @@ import Router from "@koa/router"
 import AuthController from "./controllers/auth"
 import UserController from "./controllers/user"
 
-const router = new Router()
+const unprotectedRouter = new Router()
 
-router.post("/auth/login", AuthController.login)
-router.post("/auth/register", AuthController.register)
+unprotectedRouter.post("/auth/login", AuthController.login)
+unprotectedRouter.post("/auth/register", AuthController.register)
 
-router.get("/users", UserController.listUsers)
-router.get("/users/:id", UserController.showUserDetail)
-router.put("/user/:id", UserController.updateUser)
-router.delete("/user/:id", UserController.deleteUser)
+const protectedRouter = new Router()
 
-export default router
+protectedRouter.get("/users", UserController.listUsers)
+protectedRouter.get("/users/:id", UserController.showUserDetail)
+protectedRouter.put("/user/:id", UserController.updateUser)
+protectedRouter.delete("/user/:id", UserController.deleteUser)
+
+export { protectedRouter, unprotectedRouter }
